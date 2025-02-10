@@ -1,0 +1,149 @@
+:root{
+    --font-color : rgb(29, 29, 29);
+    --font-size : 20px;
+    --heading-color : #00171F;
+    --heading-size : 26px;
+    --red : #ff0000;
+    --green : #2AFF00;
+    --yellow : #ffea05;
+    --orange : #EFA500;
+    --blue : #43BEE5;
+    --dark : #00171F;
+    --dark-green : #027e02;
+    --dark-sec : #02222d;
+    --convert-blue : invert(73%) sepia(12%) saturate(3464%) hue-rotate(162deg) brightness(96%) contrast(87%);
+}
+
+.parent-portfolio{
+    width: 100%;
+    height: 100vh;
+    background-color: var(--dark);
+    overflow-y: scroll;
+}
+
+.title-div{
+    width: 100%;
+    display: grid;
+    place-items: center;
+    padding: 20px;
+}
+
+.profile-img-div{
+    width: 100%;
+    display: grid;
+    place-items: center;
+    padding: 20px;
+    img{
+        height: 300px;
+        width: 300px;
+        border-radius: 150px;
+    }
+}
+
+.skills-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    width: 80%;
+    margin: 0 auto;
+    margin-bottom: 40px;
+}
+
+.skill {
+    text-align: center;
+    color: white;
+}
+
+.skill-bar {
+    width: 100%;
+    background: gray;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.skill-bar div {
+    height: 10px;
+    background: var(--blue);
+}
+
+.project-list{
+    width: 70%;
+    margin: 0 auto;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.contact {
+    padding: 20px;
+    text-align: center;
+}
+
+.contact .info {
+    text-align: left;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contact .info div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    width: 100%;
+    max-width: 500px;
+    background-color: var(--dark-sec);
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+
+.contact .info div img {
+    width: 25px;
+    height: 25px;
+    margin-right: 15px;
+    filter: var(--convert-blue);
+}
+
+.contact .info div a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+
+.contact .info div a:hover {
+    text-decoration: none;
+}
+
+.contact form {
+    max-width: 600px;
+    margin: 0 auto;
+    background: var(--dark-sec);
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.contact form .form-group {
+    margin-bottom: 20px;
+}
+
+.contact form label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.contact form input,
+.contact form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #bfbfbf5c;
+    border-radius: 5px;
+    background: var(--dark-sec);
+    color: #fff;
+    font-size: 1rem;
+}
+
+.contact form textarea {
+    height: 120px;
+    resize: none;
+}

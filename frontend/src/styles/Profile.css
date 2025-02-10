@@ -1,0 +1,63 @@
+:root{
+    --font-color : rgb(29, 29, 29);
+    --font-size : 20px;
+    --heading-color : #00171F;
+    --heading-size : 26px;
+    --red : #ff0000;
+    --green : #2AFF00;
+    --yellow : #ffea05;
+    --orange : #EFA500;
+    --blue : #43BEE5;
+    --dark : #00171F;
+    --dark-green : #027e02;
+    --dark-sec : #02222d;
+}
+
+.parent-profile{
+    width: 100%;
+    height: 100vh;
+    background-color: var(--dark);
+    overflow-y: scroll;
+    padding-bottom: 20px;
+}
+
+.navbar-profile{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    background-color: var(--dark-sec);
+    text{
+        color: var(--blue);
+        font-size: 26px;
+        font-weight: 500;
+        font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        margin-left: 10px;
+    }
+}
+
+.data-display-profile{
+    width: 80%;
+    height: auto;
+    border-radius: 10px;
+    border: 1px solid rgba(205, 205, 205, 0.364);
+    margin: 0 auto;
+    margin-top: 20px;
+    box-shadow: 0 0 20px 10px rgba(200, 200, 200, 0.085) inset;
+    padding: 10px;
+}
+
+.profile-img{
+    height: 160px;
+    width: 160px;
+    border-radius: 80px;
+    margin: 10px;
+    background-color: #02222d;
+    padding: 15px;
+}
+
+.info-div-profile{
+    color: white;
+    font-size: 16px;
+    margin: 10px;
+}
