@@ -47,6 +47,20 @@
     padding: 10px;
 }
 
+.grid-div-profile-wrap{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 10px;
+    gap: 20px;
+}
+
+.grid-div-profile-wrap-project{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 10px;
+    gap: 20px;
+}
+
 .profile-img{
     height: 160px;
     width: 160px;
@@ -60,4 +74,99 @@
     color: white;
     font-size: 16px;
     margin: 10px;
+}
+
+.grid-div-3-cols-wrap{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin: 10px;
+}
+
+.project-card{
+    border-radius: 8px;
+    background-color: #02222d;
+    min-height: 250px;
+    min-width: 100%;
+    display: flex;
+    justify-content: left;
+    margin-top: 10px;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    img{
+        width: 200px;
+        height: 180px;
+        margin: 10px;
+    }
+}
+
+.project-card-desc-div{
+    width: 50%;
+    max-width: 80%;
+}
+
+.add-item-popup{
+    height: auto;
+    max-width: 500px;
+    min-width: 300px;
+    border-radius: 10px;
+    background-color: #02222d;
+    position: absolute;
+    top: 100px;
+    left: calc((100% - 500px)/2);
+    box-shadow: 0 2px 8px black;
+    padding: 10px;
+    color: white;
+}
+
+@media(max-width : 1184px){
+    .grid-div-3-cols-wrap{
+        grid-template-columns: 1fr 1fr;
+        place-items: center;
+    }
+
+    .project-card{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: auto;
+    }
+
+    .project-card-desc-div{
+        width: 100%;
+    }
+
+    .grid-div-profile-wrap-project{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: auto;
+    }
+}
+
+@media (max-width : 768px) {
+    .data-display-profile{
+        width: 90%;
+    }
+
+    .grid-div-profile-wrap{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: auto;
+    }
+
+    .grid-div-3-cols-wrap{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: auto;
+    }
+
+    .add-item-popup{
+        left: calc((100% - 300px)/2);
+    }
 }

@@ -4,14 +4,14 @@ import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import {getBaseURL} from '../utils/helperFunctions';
 import {toast, Toaster} from 'react-hot-toast';
-import { Spacer, Button, Stack, Heading, Divider, Input, Textarea, CloseButton, Text, Link } from '@chakra-ui/react';
+import { Button, Heading, Text, Link, Spinner } from '@chakra-ui/react';
 import SectionHeading from '../components/SectionHeading';
 
 // publicly visible in read only mode
 export default function Portfolio() {
     const {username} = useParams();
 
-    const [profileData, setProfileData] = useState({});
+    const [profileData, setProfileData] = useState();
 
     const [message, setMessage] = useState({
         name : '',
@@ -50,19 +50,32 @@ export default function Portfolio() {
         setMessage({ ...message, [name]: value });
     }
 
+    if(!profileData || profileData.length === 0){
+        return(
+            <div style={{height: '100vh', width: '100%', display: 'grid', placeItems: 'center', backgroundColor: '#00171F'}}>
+                <Spinner
+                    thickness='4px'
+                    speed='0.65s'
+                    emptyColor='gray.200'
+                    color='blue.500'
+                    size='xl'
+                />
+                <Text color='white'>Refresh the page if not Loaded</Text>
+            </div>
+        );
+    }
+
     return (
         <div className='parent-portfolio'>
             {/* navbar */}
             <div className='navbar-profile'>
                 <text>SmartFolio</text>
-                <Spacer/>
-                
             </div>
 
             {/* hero section */}
-            <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr'}}>
+            <div className='grid-div-portfolio'>
                 <div className='title-div'>
-                    <div>
+                    <div className='data-display-title-div'>
                         <Heading size='3xl' color='#43BEE5'>Hey! I'm {profileData.name}</Heading><br/>
                         <Heading size='lg' fontWeight={500} color={'white'}>{profileData.tagLine}</Heading>
                     </div>
@@ -74,7 +87,7 @@ export default function Portfolio() {
 
             {/* About section */}
             <SectionHeading heading='About Me' backgroundTitle='ABOUT'/>
-            <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr'}}>
+            <div className='grid-div-wrap-468'>
                 <div className='title-div'>
                     <div style={{padding: '10px'}}>
                         <text style={{color : 'gray'}}>Name : </text>
@@ -171,7 +184,7 @@ export default function Portfolio() {
             <div className='project-list'>
                 {profileData?.projects?.map((project, ind)=> {
                     return(
-                        <div style={{backgroundColor: '#02222d', minHeight: '250px', borderRadius: '10px', width: '100%', padding: '20px', display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '20px', marginBottom: '20px'}}>
+                        <div className='project-div-card'>
                             <div>
                                 <Heading size='md' color='#43BEE5' fontWeight={500}>{project.projectTitle}</Heading>
                                 <Text style={{color : 'gray'}}>Description</Text>
@@ -180,7 +193,7 @@ export default function Portfolio() {
                                 <Link color='gray' href={project.projectLink}>{project.projectLink}</Link>
                             </div>
                             <div>
-                                <img src={project.imageURL} style={{height: '200px', width: '100%'}}/>
+                                <img src={project.imageURL} className='project-img'/>
                             </div>
                         </div>
                     );
@@ -197,8 +210,8 @@ export default function Portfolio() {
             <div className='skills-list'>
                 {profileData?.blogs?.map((blog, ind)=> {
                     return(
-                        <div style={{backgroundColor: '#02222d', minHeight: '300px', borderRadius: '10px', width: '100%', padding: '20px'}}>
-                            <img src={blog.imageURL} style={{minWidth: '300px', minHeight: '200px', margin: '0 auto', marginBottom: '15px'}}/>
+                        <div className='blog-div-card'>
+                            <img src={blog.imageURL}/>
                             <Heading size='md' color='#43BEE5' fontWeight={500}>{blog.title}</Heading>
                             <Text style={{color : 'white'}}>{blog.description}</Text>
                         </div>

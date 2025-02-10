@@ -12,7 +12,6 @@ export default function SectionHeading({ heading, backgroundTitle }) {
     position: "relative",
     zIndex: "1",
     fontWeight: "bold",
-    // color: '#43BEE5'
     color: 'white'
   };
 
@@ -21,7 +20,7 @@ export default function SectionHeading({ heading, backgroundTitle }) {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -55%)",
-    fontSize: "4rem",
+    fontSize: "3.8rem",
     color: "gray",
     opacity: "0.2",
     fontWeight: "bold",

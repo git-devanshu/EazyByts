@@ -3,7 +3,7 @@ import '../styles/Profile.css';
 import axios from 'axios';
 import {getBaseURL} from '../utils/helperFunctions';
 import {toast, Toaster} from 'react-hot-toast';
-import { Spacer, Button, Stack, Heading, Divider, Input, Textarea, CloseButton } from '@chakra-ui/react';
+import { Spacer, Button, Stack, Heading, Divider, Input, Textarea, CloseButton, Spinner, Text } from '@chakra-ui/react';
 import {PlusSquareIcon, DeleteIcon} from '@chakra-ui/icons';
 import Skill from '../components/Skill';
 import Education from '../components/Education';
@@ -16,7 +16,7 @@ import ImageUpload from '../components/ImageUpload';
 export default function Profile() {
     const navigate = useNavigate();
 
-    const [profileData, setProfileData] = useState({});
+    const [profileData, setProfileData] = useState();
 
     const [showSkillPopup, setShowSkillPopup] = useState(false);
     const [showExperiencePopup, setShowExperiencePopup] = useState(false);
@@ -192,7 +192,18 @@ export default function Profile() {
     }
 
     if(!profileData || profileData.length === 0){
-        return <div>Loading...</div>;
+        return(
+            <div style={{height: '100vh', width: '100%', display: 'grid', placeItems: 'center', backgroundColor: '#00171F'}}>
+                <Spinner
+                    thickness='4px'
+                    speed='0.65s'
+                    emptyColor='gray.200'
+                    color='blue.500'
+                    size='xl'
+                />
+                <Text color='white'>Refresh the page if not Loaded</Text>
+            </div>
+        );
     }
 
     return (
@@ -230,7 +241,7 @@ export default function Profile() {
             <div className='data-display-profile'>
                 <Heading size={'md'} fontWeight={400} color={'#cccccc'}>PROFILE DATA</Heading>
                 <Divider/>
-                <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', margin: '10px'}}>
+                <div className='grid-div-profile-wrap'>
                     <div style={{display: 'grid', placeItems: 'center'}}>
                         <img src={profileData.profilePhotoURL} alt='profile-img' className='profile-img'/>
                         <Stack direction={'row'}>
@@ -251,20 +262,20 @@ export default function Profile() {
                     </div>
                     <div className='info-div-profile'>
                         <div style={{display: 'flex', alignItems: 'center', marginBottom: '10px'}}>
-                            <text>Username : </text>
-                            <Input type='text' variant='unstyled' name='username' value={profileData.username} width={'250px'} ml={'10px'} readOnly maxLength={20} minLength={3}/>
+                            <text>Username: </text>
+                            <Input type='text' variant='unstyled' name='username' value={profileData.username} maxWidth={'250px'} ml={'10px'} readOnly maxLength={20} minLength={3}/>
                         </div>
                         <div style={{display: 'flex', alignItems: 'center', marginBottom: '10px'}}>
-                            <text>Name : </text>
-                            <Input type='text' variant='flushed' name='name' value={profileData.name} width={'250px'} ml={'10px'} required onChange={handleChange}/>
+                            <text>Name: </text>
+                            <Input type='text' variant='flushed' name='name' value={profileData.name} maxWidth={'250px'} ml={'10px'} required onChange={handleChange}/>
                         </div>
                         <div style={{display: 'flex', alignItems: 'center', marginBottom: '10px'}}>
-                            <text>Gender : </text>
-                            <Input type='text' variant='flushed' name='gender' value={profileData.gender} width={'250px'} ml={'10px'} required onChange={handleChange}/>
+                            <text>Gender: </text>
+                            <Input type='text' variant='flushed' name='gender' value={profileData.gender} maxWidth={'250px'} ml={'10px'} required onChange={handleChange}/>
                         </div>
                         <div style={{display: 'flex', alignItems: 'center', marginBottom: '10px'}}>
-                            <text>Date of Birth : </text>
-                            <Input type='date' variant='flushed' name='dateOfBirth' value={profileData.dateOfBirth} width={'250px'} ml={'10px'} required onChange={handleChange}/>
+                            <text>Date of Birth: </text>
+                            <Input type='date' variant='flushed' name='dateOfBirth' value={profileData.dateOfBirth} maxWidth={'250px'} ml={'10px'} required onChange={handleChange}/>
                         </div>
                     </div>
                 </div>
@@ -272,33 +283,33 @@ export default function Profile() {
                 {/* contacts div */}
                 <Heading size={'md'} fontWeight={400} color={'#cccccc'}>CONTACTS</Heading>
                 <Divider/>
-                <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', margin: '10px'}}>
+                <div className='grid-div-profile-wrap'>
                     <div className='info-div-profile'>
                         <div style={{display: 'flex', alignItems: 'center', marginBottom: '10px'}}>
-                            <text>Phone Number : </text>
-                            <Input type='number' variant='flushed' name='phone' value={profileData.phone} width={'250px'} ml={'10px'} required onChange={handleChange}/>
+                            <text>Phone Number: </text>
+                            <Input type='number' variant='flushed' name='phone' value={profileData.phone} maxWidth={'250px'} ml={'10px'} required onChange={handleChange}/>
                         </div>
                         <div style={{display: 'flex', alignItems: 'center', marginBottom: '10px'}}>
-                            <text>LinkedIn : </text>
-                            <Input type='text' variant='flushed' name='linkedInURL' value={profileData.linkedInURL} width={'250px'} ml={'10px'} onChange={handleChange}/>
+                            <text>LinkedIn: </text>
+                            <Input type='text' variant='flushed' name='linkedInURL' value={profileData.linkedInURL} maxWidth={'250px'} ml={'10px'} onChange={handleChange}/>
                         </div>
                         <div style={{display: 'flex', alignItems: 'center', marginBottom: '10px'}}>
-                            <text>GitHub : </text>
-                            <Input type='text' variant='flushed' name='githubURL' value={profileData.githubURL} width={'250px'} ml={'10px'} required onChange={handleChange}/>
+                            <text>GitHub: </text>
+                            <Input type='text' variant='flushed' name='githubURL' value={profileData.githubURL} maxWidth={'250px'} ml={'10px'} required onChange={handleChange}/>
                         </div>
                     </div>
                     <div className='info-div-profile'>
                         <div style={{display: 'flex', alignItems: 'center', marginBottom: '10px'}}>
-                            <text>Address : </text>
-                            <Input type='text' variant='flushed' name='address' value={profileData.address} width={'250px'} ml={'10px'} required onChange={handleChange}/>
+                            <text>Address: </text>
+                            <Input type='text' variant='flushed' name='address' value={profileData.address} maxWidth={'250px'} ml={'10px'} required onChange={handleChange}/>
                         </div>
                         <div style={{display: 'flex', alignItems: 'center', marginBottom: '10px'}}>
-                            <text>ZIP Code : </text>
-                            <Input type='text' variant='flushed' name='zipCode' value={profileData.zipCode} width={'250px'} ml={'10px'} required onChange={handleChange}/>
+                            <text>ZIP Code: </text>
+                            <Input type='text' variant='flushed' name='zipCode' value={profileData.zipCode} maxWidth={'250px'} ml={'10px'} required onChange={handleChange}/>
                         </div>
                         <div style={{display: 'flex', alignItems: 'center', marginBottom: '10px'}}>
-                            <text>Email : </text>
-                            <Input type='email' variant='unstyled' name='email' value={profileData.email} width={'250px'} ml={'10px'} readOnly/>
+                            <text>Email: </text>
+                            <Input type='email' variant='unstyled' name='email' value={profileData.email} maxWidth={'250px'} ml={'10px'} readOnly/>
                         </div>
                     </div>
                 </div>
@@ -306,11 +317,11 @@ export default function Profile() {
                 {/* about div */}
                 <Heading size={'md'} fontWeight={400} color={'#cccccc'}>ABOUT</Heading>
                 <Divider/>
-                <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', margin: '10px'}}>
+                <div className='grid-div-profile-wrap'>
                     <div className='info-div-profile'>
                         <div style={{display: 'flex', alignItems: 'center', marginBottom: '10px'}}>
-                            <text>Tagline : </text>
-                            <Input type='text' variant='flushed' name='tagLine' value={profileData.tagLine} width={'250px'} ml={'10px'} required onChange={handleChange}/>
+                            <text>Tagline: </text>
+                            <Input type='text' variant='flushed' name='tagLine' value={profileData.tagLine} maxWidth={'250px'} ml={'10px'} required onChange={handleChange}/>
                         </div>
                     </div>
                     <div className='info-div-profile'>
@@ -321,7 +332,7 @@ export default function Profile() {
                 {/* skills div */}
                 <Heading size={'md'} fontWeight={400} color={'#cccccc'}>SKILLS</Heading>
                 <Divider/>
-                <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', margin: '10px'}}>
+                <div className='grid-div-3-cols-wrap'>
                     {(!profileData || profileData.length === 0 || !profileData.skills) && (
                         <div style={{margin: '10px', color: 'white', fontSize: '16px'}}>No Skills added</div>
                     )}
@@ -339,7 +350,7 @@ export default function Profile() {
                 {/* education div */}
                 <Heading size={'md'} fontWeight={400} color={'#cccccc'}>EDUCATION</Heading>
                 <Divider/>
-                <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', margin: '10px'}}>
+                <div className='grid-div-3-cols-wrap'>
                     {(!profileData || profileData.length === 0 || !profileData.education) && (
                         <div style={{margin: '10px', color: 'white', fontSize: '16px'}}>No education details added</div>
                     )}
@@ -357,7 +368,7 @@ export default function Profile() {
                 {/* experience div */}
                 <Heading size={'md'} fontWeight={400} color={'#cccccc'}>EXPERIENCE</Heading>
                 <Divider/>
-                <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', margin: '10px'}}>
+                <div className='grid-div-3-cols-wrap'>
                     {(!profileData || profileData.length === 0 || !profileData.experience) && (
                         <div style={{margin: '10px', color: 'white', fontSize: '16px'}}>No experience added</div>
                     )}
@@ -375,7 +386,7 @@ export default function Profile() {
                 {/* projects div */}
                 <Heading size={'md'} fontWeight={400} color={'#cccccc'}>PROJECTS</Heading>
                 <Divider/>
-                <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', margin: '10px', gap:'10px'}}>
+                <div className='grid-div-profile-wrap-project'>
                     {(!profileData || profileData.length === 0 || !profileData.projects) && (
                         <div style={{margin: '10px', color: 'white', fontSize: '16px'}}>No projects added</div>
                     )}
@@ -384,7 +395,7 @@ export default function Profile() {
                             <Project data={project} key={ind} action={() => handleDeleteProject(ind)}/>
                         )
                     })}
-                    <div onClick={()=>setShowProjectPopup(true)} style={{borderRadius: '8px', height: '80px', minWidth: '400px', maxWidth: '500px', display: 'flex', alignItems: 'center', marginTop: '10px', border: '2px dashed gray'}}>
+                    <div onClick={()=>setShowProjectPopup(true)} style={{borderRadius: '8px', height: '80px', minWidth: '300px', maxWidth: '500px', display: 'flex', alignItems: 'center', marginTop: '10px', border: '2px dashed gray'}}>
                         <PlusSquareIcon h={'60px'} w={'60px'} color={'gray'} ml={'7px'}/>
                         <Heading fontWeight={400} ml={'10px'} size={'lg'} color={'gray'}>ADD</Heading>
                     </div>
@@ -393,7 +404,7 @@ export default function Profile() {
                 {/* blogs div */}
                 <Heading size={'md'} fontWeight={400} color={'#cccccc'}>BLOGS</Heading>
                 <Divider/>
-                <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', margin: '10px', gap:'10px'}}>
+                <div className='grid-div-profile-wrap-project'>
                     {(!profileData || profileData.length === 0 || !profileData.blogs) && (
                         <div style={{margin: '10px', color: 'white', fontSize: '16px'}}>No projects added</div>
                     )}
@@ -402,7 +413,7 @@ export default function Profile() {
                             <Blog data={blog} key={ind} action={() => handleDeleteBlog(ind)}/>
                         )
                     })}
-                    <div onClick={()=>setShowBlogPopup(true)} style={{borderRadius: '8px', height: '80px', minWidth: '400px', maxWidth: '500px', display: 'flex', alignItems: 'center', marginTop: '10px', border: '2px dashed gray'}}>
+                    <div onClick={()=>setShowBlogPopup(true)} style={{borderRadius: '8px', height: '80px', minWidth: '300px', maxWidth: '500px', display: 'flex', alignItems: 'center', marginTop: '10px', border: '2px dashed gray'}}>
                         <PlusSquareIcon h={'60px'} w={'60px'} color={'gray'} ml={'7px'}/>
                         <Heading fontWeight={400} ml={'10px'} size={'lg'} color={'gray'}>ADD</Heading>
                     </div>
@@ -436,16 +447,16 @@ export default function Profile() {
             </div>
 
             {showSkillPopup && (
-                <div style={{height: 'auto', width: '500px', borderRadius: '10px', backgroundColor: '#02222d', position: 'absolute', top: '100px', left: 'calc((100% - 500px)/2)', boxShadow: '0 2px 8px black', padding: '10px', color: 'white'}}>
+                <div className='add-item-popup'>
                     <Stack direction={'row'}>
                         <Heading size={'md'} fontWeight={'md'} color={'white'}>Add Skill</Heading>
                         <Spacer/>
                         <CloseButton bgColor={'red'} size='sm' onClick={closePopups}/>
                     </Stack>
                     <text style={{fontSize: '16px', color: 'gray'}}>Skill name : </text>
-                    <Input type='text' variant='flushed' name='skillName' value={newSkill.skillName} width={'250px'} ml={'10px'} onChange={(e) => setNewSkill({ ...newSkill, skillName: e.target.value })}/><br/>
+                    <Input type='text' variant='flushed' name='skillName' value={newSkill.skillName} maxWidth={'250px'} ml={'10px'} onChange={(e) => setNewSkill({ ...newSkill, skillName: e.target.value })}/><br/>
                     <text style={{fontSize: '16px', color: 'gray'}}>Skill name : </text>
-                    <Input type='number' variant='flushed' name='skillLevel' value={newSkill.skillLevel} width={'250px'} ml={'10px'} onChange={(e) => setNewSkill({ ...newSkill, skillLevel: Number(e.target.value) })}/><br/>
+                    <Input type='number' variant='flushed' name='skillLevel' value={newSkill.skillLevel} maxWidth={'250px'} ml={'10px'} onChange={(e) => setNewSkill({ ...newSkill, skillLevel: Number(e.target.value) })}/><br/>
                     <Button
                         onClick={handleAddSkill}
                         colorScheme='green' 
@@ -461,20 +472,20 @@ export default function Profile() {
                 </div>
             )}
             {showEducationPopup && (
-                <div style={{height: 'auto', width: '500px', borderRadius: '10px', backgroundColor: '#02222d', position: 'absolute', top: '100px', left: 'calc((100% - 500px)/2)', boxShadow: '0 2px 8px black', padding: '10px', color: 'white'}}>
+                <div className='add-item-popup'>
                     <Stack direction={'row'}>
                         <Heading size={'md'} fontWeight={'md'} color={'white'}>Add Education</Heading>
                         <Spacer/>
                         <CloseButton bgColor={'red'} size='sm' onClick={closePopups}/>
                     </Stack>
                     <text style={{fontSize: '16px', color: 'gray'}}>Course : </text>
-                    <Input type='text' variant='flushed' name='course' value={newEducation.course} width={'250px'} ml={'10px'} onChange={(e) => setNewEducation({ ...newEducation, course: e.target.value })}/><br/>
+                    <Input type='text' variant='flushed' name='course' value={newEducation.course} maxWidth={'250px'} ml={'10px'} onChange={(e) => setNewEducation({ ...newEducation, course: e.target.value })}/><br/>
                     <text style={{fontSize: '16px', color: 'gray'}}>Institution : </text>
-                    <Input type='text' variant='flushed' name='institution' value={newEducation.institution} width={'250px'} ml={'10px'} onChange={(e) => setNewEducation({ ...newEducation, institution: e.target.value })}/><br/>
+                    <Input type='text' variant='flushed' name='institution' value={newEducation.institution} maxWidth={'250px'} ml={'10px'} onChange={(e) => setNewEducation({ ...newEducation, institution: e.target.value })}/><br/>
                     <text style={{fontSize: '16px', color: 'gray'}}>Passing Year : </text>
-                    <Input type='text' variant='flushed' name='passingYear' value={newEducation.passingYear} width={'250px'} ml={'10px'} onChange={(e) => setNewEducation({ ...newEducation, passingYear: e.target.value })}/><br/>
+                    <Input type='text' variant='flushed' name='passingYear' value={newEducation.passingYear} maxWidth={'250px'} ml={'10px'} onChange={(e) => setNewEducation({ ...newEducation, passingYear: e.target.value })}/><br/>
                     <text style={{fontSize: '16px', color: 'gray'}}>Score : </text>
-                    <Input type='text' variant='flushed' name='score' value={newEducation.score} width={'250px'} ml={'10px'} onChange={(e) => setNewEducation({ ...newEducation, score: e.target.value })}/><br/>
+                    <Input type='text' variant='flushed' name='score' value={newEducation.score} maxWidth={'250px'} ml={'10px'} onChange={(e) => setNewEducation({ ...newEducation, score: e.target.value })}/><br/>
                     <Button
                         onClick={handleAddEducation}
                         colorScheme='green' 
@@ -490,18 +501,18 @@ export default function Profile() {
                 </div>
             )}
             {showExperiencePopup && (
-                <div style={{height: 'auto', width: '500px', borderRadius: '10px', backgroundColor: '#02222d', position: 'absolute', top: '100px', left: 'calc((100% - 500px)/2)', boxShadow: '0 2px 8px black', padding: '10px', color: 'white'}}>
+                <div className='add-item-popup'>
                     <Stack direction={'row'}>
                         <Heading size={'md'} fontWeight={'md'} color={'white'}>Add Experience</Heading>
                         <Spacer/>
                         <CloseButton bgColor={'red'} size='sm' onClick={closePopups}/>
                     </Stack>
                     <text style={{fontSize: '16px', color: 'gray'}}>Post : </text>
-                    <Input type='text' variant='flushed' name='post' value={newExperience.post} width={'250px'} ml={'10px'} onChange={(e) => setNewExperience({ ...newExperience, post: e.target.value })}/><br/>
+                    <Input type='text' variant='flushed' name='post' value={newExperience.post} maxWidth={'250px'} ml={'10px'} onChange={(e) => setNewExperience({ ...newExperience, post: e.target.value })}/><br/>
                     <text style={{fontSize: '16px', color: 'gray'}}>Organization : </text>
-                    <Input type='text' variant='flushed' name='organization' value={newExperience.organization} width={'250px'} ml={'10px'} onChange={(e) => setNewExperience({ ...newExperience, organization: e.target.value })}/><br/>
+                    <Input type='text' variant='flushed' name='organization' value={newExperience.organization} maxWidth={'250px'} ml={'10px'} onChange={(e) => setNewExperience({ ...newExperience, organization: e.target.value })}/><br/>
                     <text style={{fontSize: '16px', color: 'gray'}}>Year Joined : </text>
-                    <Input type='text' variant='flushed' name='yearJoined' value={newExperience.yearJoined} width={'250px'} ml={'10px'} onChange={(e) => setNewExperience({ ...newExperience, yearJoined: e.target.value })}/><br/>
+                    <Input type='text' variant='flushed' name='yearJoined' value={newExperience.yearJoined} maxWidth={'250px'} ml={'10px'} onChange={(e) => setNewExperience({ ...newExperience, yearJoined: e.target.value })}/><br/>
                     <Button
                         onClick={handleAddExperience}
                         colorScheme='green' 
@@ -517,18 +528,18 @@ export default function Profile() {
                 </div>
             )}
             {showProjectPopup && (
-                <div style={{height: 'auto', width: '500px', borderRadius: '10px', backgroundColor: '#02222d', position: 'absolute', top: '100px', left: 'calc((100% - 500px)/2)', boxShadow: '0 2px 8px black', padding: '10px', color: 'white'}}>
+                <div className='add-item-popup'>
                     <Stack direction={'row'}>
                         <Heading size={'md'} fontWeight={'md'} color={'white'}>Add Project</Heading>
                         <Spacer/>
                         <CloseButton bgColor={'red'} size='sm' onClick={closePopups}/>
                     </Stack>
                     <text style={{fontSize: '16px', color: 'gray'}}>Title : </text>
-                    <Input type='text' variant='flushed' name='projectTitle' value={newProject.projectTitle} width={'250px'} ml={'10px'} onChange={(e) => setNewProject({ ...newProject, projectTitle: e.target.value })}/><br/>
+                    <Input type='text' variant='flushed' name='projectTitle' value={newProject.projectTitle} maxWidth={'250px'} ml={'10px'} onChange={(e) => setNewProject({ ...newProject, projectTitle: e.target.value })}/><br/>
                     <text style={{fontSize: '16px', color: 'gray'}}>Description : </text>
-                    <Textarea type='text' name='description' width={'450px'} value={newProject.description} ml={'10px'} mt={'10px'} onChange={(e) => setNewProject({ ...newProject, description: e.target.value })}/><br/>
+                    <Textarea type='text' name='description' width={'80%'} value={newProject.description} ml={'10px'} mt={'10px'} onChange={(e) => setNewProject({ ...newProject, description: e.target.value })}/><br/>
                     <text style={{fontSize: '16px', color: 'gray'}}>Project Link : </text>
-                    <Input type='text' variant='flushed' name='projectLink' value={newProject.projectLink} width={'250px'} ml={'10px'} mb={'10px'} onChange={(e) => setNewProject({ ...newProject, projectLink: e.target.value })}/><br/>
+                    <Input type='text' variant='flushed' name='projectLink' value={newProject.projectLink} maxWidth={'250px'} ml={'10px'} mb={'10px'} onChange={(e) => setNewProject({ ...newProject, projectLink: e.target.value })}/><br/>
                     <ImageUpload onUpload={(url) => {setNewProject({ ...newProject, imageURL: url })}} /><br/>
                     <Button
                         onClick={handleAddProject}
@@ -545,16 +556,16 @@ export default function Profile() {
                 </div>
             )}
             {showBlogPopup && (
-                <div style={{height: 'auto', width: '500px', borderRadius: '10px', backgroundColor: '#02222d', position: 'absolute', top: '100px', left: 'calc((100% - 500px)/2)', boxShadow: '0 2px 8px black', padding: '10px', color: 'white'}}>
+                <div className='add-item-popup'>
                     <Stack direction={'row'}>
                         <Heading size={'md'} fontWeight={'md'} color={'white'}>Add Blog</Heading>
                         <Spacer/>
                         <CloseButton bgColor={'red'} size='sm' onClick={closePopups}/>
                     </Stack>
                     <text style={{fontSize: '16px', color: 'gray'}}>Title : </text>
-                    <Input type='text' variant='flushed' name='title' value={newBlog.title} width={'250px'} ml={'10px'} onChange={(e) => setNewBlog({ ...newBlog, title: e.target.value })}/><br/>
+                    <Input type='text' variant='flushed' name='title' value={newBlog.title} maxWidth={'250px'} ml={'10px'} onChange={(e) => setNewBlog({ ...newBlog, title: e.target.value })}/><br/>
                     <text style={{fontSize: '16px', color: 'gray'}}>Description : </text>
-                    <Textarea type='text' name='description' value={newBlog.description} width={'450px'} ml={'10px'} mt={'10px'} mb={'10px'} onChange={(e) => setNewBlog({ ...newBlog, description: e.target.value })}/><br/>
+                    <Textarea type='text' name='description' value={newBlog.description} width={'80%'} ml={'10px'} mt={'10px'} mb={'10px'} onChange={(e) => setNewBlog({ ...newBlog, description: e.target.value })}/><br/>
                     <ImageUpload onUpload={(url) => {setNewBlog({ ...newBlog, imageURL: url })}} /><br/>
                     <Button
                         onClick={handleAddBlog}
