@@ -1,5 +1,5 @@
 export function getBaseURL(){
-    return "http://localhost:5000";
+    return "https://smartfolio-0d99.onrender.com";
 }
 
 export function checkEmailValidity(email){
